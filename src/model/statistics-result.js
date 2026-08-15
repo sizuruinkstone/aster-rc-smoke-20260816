@@ -1,0 +1,1 @@
+export const STATISTICS_RESULT_VERSION = 1;

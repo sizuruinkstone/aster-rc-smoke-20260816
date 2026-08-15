@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "security": {
+    "uncontainedAgentAndVerificationEgressAccepted": true
+  },
+  "project": {
+    "alias": "rc-smoke",
+    "idPrefix": "RC",
+    "defaultBaseBranch": "main",
+    "remote": "origin"
+  },
+  "checks": {
+    "test": ["npm", "test"]
+  },
+  "paths": {
+    "protected": [".git", ".github/workflows", ".ai-work/project.yml"],
+    "denied": [],
+    "securityPaths": { "items": ["src/security"] },
+    "publicApiPaths": { "items": ["src/api"] },
+    "persistentModelPaths": { "items": ["src/model"] }
+  },
+  "review": {
+    "forceL2": {
+      "pathPatterns": ["src/api/**", "src/security/**", "src/model/**", "package.json", "package-lock.json", ".github/workflows/**"],
+      "conditions": ["newDependenciesNotEmpty", "highRisk"]
+    }
+  },
+  "github": {
+    "authorizedReviewers": [{ "login": "sizuruinkstone" }],
+    "autoRespond": false,
+    "cleanupRemoteBranch": true
+  },
+  "pathReservation": {
+    "mode": "TIERED",
+    "hardPatterns": ["package.json", "package-lock.json", ".github/workflows/**"]
+  },
+  "visual": {
+    "devServerPortRange": [44000, 44009],
+    "commitScreenshots": "none"
+  }
+}
